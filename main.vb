@@ -56,7 +56,7 @@ Module ConsoleToDo
             Case ConsoleKey.A : AddToDo()
             Case ConsoleKey.U : UpdateItem()
             Case ConsoleKey.V : If viewAll = False Then viewAll = True Else viewAll = False
-            Case ConsoleKey.Q : End
+            Case ConsoleKey.Q : Console.WriteLine() : End
         End Select
         DisplayToDo()
     End Sub
@@ -79,17 +79,18 @@ Module ConsoleToDo
         Try
             Console.WriteLine("Current item is" + vbCrLf + String.Format("  ID #{0} | {1} | ""{2}""", todoList(id)(0), getState(id), todoList(id)(2)))
             Console.ForegroundColor = ConsoleColor.Yellow
-            Console.WriteLine("[M]ark as complete/incomplete  |  [P]ick Other ID  |  [R]eturn to Menu")
+            Console.Write("[M]ark as complete/incomplete  |  [P]ick Other ID  |  [R]eturn to Menu")
             Console.ForegroundColor = ConsoleColor.White
             Select Case Console.ReadKey(True).Key
                 Case ConsoleKey.M
                     Console.ForegroundColor = ConsoleColor.Yellow
-                    Console.WriteLine("Mark as [C]omplete  |  Mark as [I]ncomplete  |  [R]eturn to Menu")
+                    Console.WriteLine()
+                    Console.Write("Mark as [C]omplete  |  Mark as [I]ncomplete  |  [R]eturn to Menu")
                     Console.ForegroundColor = ConsoleColor.White
                     Select Case Console.ReadKey(True).Key
                         Case ConsoleKey.C
                             todoList(id)(1) = "y"
-                            Console.WriteLine(String.Format("ID #{0} marked as complete. Returning to menu .", id))
+                            Console.WriteLine(String.Format("ID #{0} marked as complete. Returning to menu.", id))
                             System.Threading.Thread.Sleep(3000)
                             SaveToDo()
                             Exit Sub
