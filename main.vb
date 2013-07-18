@@ -79,13 +79,13 @@ Module ConsoleToDo
         Try
             Console.WriteLine("Current item is" + vbCrLf + String.Format("  ID #{0} | {1} | ""{2}""", todoList(id)(0), getState(id), todoList(id)(2)))
             Console.ForegroundColor = ConsoleColor.Yellow
-            Console.WriteLine("[M]ark as complete/incomplete  |  [P]ick Other ID  |  [R]eturn to Menu")
+            Console.Write("[M]ark as complete/incomplete  |  [P]ick Other ID  |  [R]eturn to Menu")
             Console.ForegroundColor = ConsoleColor.White
             Select Case Console.ReadKey(True).Key
                 Case ConsoleKey.M
                     Console.ForegroundColor = ConsoleColor.Yellow
-                    Console.WriteLine
-                    Console.WriteLine("Mark as [C]omplete  |  Mark as [I]ncomplete  |  [R]eturn to Menu")
+                    Console.WriteLine()
+                    Console.Write("Mark as [C]omplete  |  Mark as [I]ncomplete  |  [R]eturn to Menu")
                     Console.ForegroundColor = ConsoleColor.White
                     Select Case Console.ReadKey(True).Key
                         Case ConsoleKey.C
