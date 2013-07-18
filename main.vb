@@ -90,12 +90,14 @@ Module ConsoleToDo
                     Select Case Console.ReadKey(True).Key
                         Case ConsoleKey.C
                             todoList(id)(1) = "y"
+                            Console.WriteLine()
                             Console.WriteLine(String.Format("ID #{0} marked as complete. Returning to menu.", id))
                             System.Threading.Thread.Sleep(3000)
                             SaveToDo()
                             Exit Sub
                         Case ConsoleKey.I
                             todoList(id)(1) = "n"
+                            Console.WriteLine()
                             Console.WriteLine(String.Format("ID #{0} marked as incomplete. Returning to menu.", id))
                             System.Threading.Thread.Sleep(3000)
                             SaveToDo()
