@@ -77,7 +77,42 @@ Module ConsoleToDo
     Sub UpdateItem()
         Console.Clear()
         Console.Write("Please enter item id: ")
-        Dim id As String = Console.ReadLine()
+        Dim id As String
+        Do
+            Dim inKey As ConsoleKeyInfo = Console.ReadKey(True)
+            Select Case inKey.Key
+                Case ConsoleKey.D0 : Console.Write("0") : id = id + "0"
+                Case ConsoleKey.D1 : Console.Write("1") : id = id + "1"
+                Case ConsoleKey.D2 : Console.Write("2") : id = id + "2"
+                Case ConsoleKey.D3 : Console.Write("3") : id = id + "3"
+                Case ConsoleKey.D4 : Console.Write("4") : id = id + "4"
+                Case ConsoleKey.D5 : Console.Write("5") : id = id + "5"
+                Case ConsoleKey.D6 : Console.Write("6") : id = id + "6"
+                Case ConsoleKey.D7 : Console.Write("7") : id = id + "7"
+                Case ConsoleKey.D8 : Console.Write("8") : id = id + "8"
+                Case ConsoleKey.D9 : Console.Write("9") : id = id + "9"
+                Case ConsoleKey.NumPad0 : Console.Write("0") : id = id + "0"
+                Case ConsoleKey.NumPad1 : Console.Write("1") : id = id + "1"
+                Case ConsoleKey.NumPad2 : Console.Write("2") : id = id + "2"
+                Case ConsoleKey.NumPad3 : Console.Write("3") : id = id + "3"
+                Case ConsoleKey.NumPad4 : Console.Write("4") : id = id + "4"
+                Case ConsoleKey.NumPad5 : Console.Write("5") : id = id + "5"
+                Case ConsoleKey.NumPad6 : Console.Write("6") : id = id + "6"
+                Case ConsoleKey.NumPad7 : Console.Write("7") : id = id + "7"
+                Case ConsoleKey.NumPad8 : Console.Write("8") : id = id + "8"
+                Case ConsoleKey.NumPad9 : Console.Write("9") : id = id + "9"
+                Case ConsoleKey.Backspace
+                    If Not id = "" Then
+                        Console.Write(vbBack)
+                        Console.Write(" ")
+                        Console.Write(vbBack)
+                        id = id.Remove(id.Length - 1)
+                    End If
+                Case ConsoleKey.Enter : Exit Do
+            End Select
+        Loop
+        If id = "" Then Exit Sub
+        Console.WriteLine()
         Try
             Console.WriteLine("Current item is" + vbCrLf + String.Format("  ID #{0} | {1} | ""{2}""", todoList(id)(0), getState(id), todoList(id)(2)))
             Console.ForegroundColor = ConsoleColor.Yellow
@@ -124,8 +159,8 @@ Module ConsoleToDo
                 Case ConsoleKey.R : Exit Sub
             End Select
         Catch ex As Exception
-            Console.WriteLine("An error was encountered (Maybe you entered text instead of a number?). Returning to menu.")
-            System.Threading.Thread.Sleep(5000)
+            Console.WriteLine("ID not found. Returning to menu.")
+            System.Threading.Thread.Sleep(3000)
             DisplayToDo()
         End Try
     End Sub
