@@ -1,4 +1,4 @@
-Imports System.IO
+﻿Imports System.IO
 Module ConsoleToDo
     Dim todoPath As String = Path.Combine(Directory.GetCurrentDirectory(), "todoBase.db")
     Dim todo() As String
@@ -64,8 +64,10 @@ Module ConsoleToDo
         Console.Clear()
         Console.WriteLine("Please enter the description of the To-Do item:")
         Dim desc As String = Console.ReadLine()
-        todoList.Add({todoList.Count.ToString(), "n", desc})
-        SaveToDo()
+        If Not desc = "" Then
+            todoList.Add({todoList.Count.ToString(), "n", desc})
+            SaveToDo()
+        End If
     End Sub
     Function getState(id As Integer)
         If todoList(id)(1) = "y" Then Return " Complete "
@@ -79,7 +81,7 @@ Module ConsoleToDo
         Try
             Console.WriteLine("Current item is" + vbCrLf + String.Format("  ID #{0} | {1} | ""{2}""", todoList(id)(0), getState(id), todoList(id)(2)))
             Console.ForegroundColor = ConsoleColor.Yellow
-            Console.Write("[M]ark as complete/incomplete  |  [P]ick Other ID  |  [R]eturn to Menu")
+            Console.Write("[M]ark as complete/incomplete  |  [U]pdate Description  |  [P]ick Other ID  |  [R]eturn to Menu")
             Console.ForegroundColor = ConsoleColor.White
             Select Case Console.ReadKey(True).Key
                 Case ConsoleKey.M
@@ -104,6 +106,20 @@ Module ConsoleToDo
                             Exit Sub
                         Case ConsoleKey.R : Exit Sub
                     End Select
+                Case ConsoleKey.U
+                    Console.WriteLine()
+                    Console.WriteLine(String.Format("Please enter the new description for ID#{0}:", id))
+                    Dim desc As String = Console.ReadLine()
+                    If Not desc = "" Then
+                        todoList(id)(2) = desc
+                        SaveToDo()
+                        Console.WriteLine(String.Format("Description for ID#{0} updated. Returning to menu.", id))
+                        System.Threading.Thread.Sleep(3000)
+                        Exit Sub
+                    End If
+                    Console.WriteLine("Description not updated. Returning to menu.")
+                    System.Threading.Thread.Sleep(3000)
+                    Exit Sub
                 Case ConsoleKey.P : UpdateItem()
                 Case ConsoleKey.R : Exit Sub
             End Select
