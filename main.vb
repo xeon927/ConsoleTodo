@@ -75,7 +75,7 @@ Module ConsoleToDo
         Return "  Error   "
     End Function
     Sub UpdateItem()
-        Console.Clear()
+        Console.WriteLine()
         Console.Write("Please enter item id: ")
         Dim id As String
         Do
