@@ -40,12 +40,12 @@ Module ConsoleToDo
         Console.Clear()
         If viewAll Then
             For i As Integer = 0 To (todoList.Count - 1)
-                Console.WriteLine(String.Format("{0} | {1} | {2}", todoList(i)(0), getState(i), todoList(i)(2)))
+                Console.WriteLine(String.Format("{0} | {1} | {2}", todoList(i)(0).PadLeft(todoList(todoList.Count - 1)(0).ToString().Length), getState(i), todoList(i)(2)))
             Next
         Else
             For i As Integer = (todoList.Count - 1) To 0 Step -1
                 If todoList(i)(1) = "y" Then Continue For
-                If todoList(i)(1) = "n" Then Console.WriteLine(String.Format("{0} | {1}", todoList(i)(0), todoList(i)(2)))
+                If todoList(i)(1) = "n" Then Console.WriteLine(String.Format("{0} | {1}", todoList(i)(0).PadLeft(todoList(todoList.Count - 1)(0).ToString().Length), todoList(i)(2)))
             Next
         End If
         'Display Stuff
