@@ -141,6 +141,7 @@ Module ConsoleToDo
                                     desc = desc.Remove(desc.Length - 1)
                                 End If
                             Case ConsoleKey.Enter
+                                Console.WriteLine()
                                 If desc = "" Then
                                     Console.WriteLine("Description not updated. Returning to menu.")
                                     System.Threading.Thread.Sleep(3000)
