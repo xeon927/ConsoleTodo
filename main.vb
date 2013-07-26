@@ -128,17 +128,37 @@ Module ConsoleToDo
                 Case ConsoleKey.U
                     Console.WriteLine()
                     Console.WriteLine(String.Format("Please enter the new description for ID#{0}:", id))
-                    Dim desc As String = Console.ReadLine()
-                    If Not desc = "" Then
-                        todoList(id)(2) = desc
-                        SaveToDo()
-                        Console.WriteLine(String.Format("Description for ID#{0} updated. Returning to menu.", id))
-                        System.Threading.Thread.Sleep(3000)
-                        Exit Sub
-                    End If
-                    Console.WriteLine("Description not updated. Returning to menu.")
-                    System.Threading.Thread.Sleep(3000)
-                    Exit Sub
+                    Dim desc As String = todoList(id)(2)
+                    Console.Write(desc)
+                    Do
+                        Dim inKey As ConsoleKeyInfo = Console.ReadKey(True)
+                        Select Case inKey.Key
+                            Case ConsoleKey.Backspace
+                                If Not desc = "" Then
+                                    Console.Write(vbBack)
+                                    Console.Write(" ")
+                                    Console.Write(vbBack)
+                                    desc = desc.Remove(desc.Length - 1)
+                                End If
+                            Case ConsoleKey.Enter
+                                If desc = "" Then
+                                    Console.WriteLine("Description not updated. Returning to menu.")
+                                    System.Threading.Thread.Sleep(3000)
+                                    Exit Sub
+                                End If
+                                If desc = todoList(id)(2) Then
+                                    Console.WriteLine("Description not updated. Returning to menu.")
+                                    System.Threading.Thread.Sleep(3000)
+                                    Exit Sub
+                                End If
+                                todoList(id)(2) = desc
+                                SaveToDo()
+                                Console.WriteLine(String.Format("Description for ID#{0} updated. Returning to menu.", id))
+                                System.Threading.Thread.Sleep(3000)
+                                Exit Sub
+                            Case Else : Console.Write(inKey.KeyChar) : desc = desc + inKey.KeyChar
+                        End Select
+                    Loop
                 Case ConsoleKey.P : UpdateItem()
                 Case ConsoleKey.R : Exit Sub
             End Select
