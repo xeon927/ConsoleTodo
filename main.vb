@@ -1,3 +1,4 @@
+Imports System.Collections.Generic
 Imports System.IO
 Module ConsoleToDo
     Dim todoPath As String = Path.Combine(Directory.GetCurrentDirectory(), "todoBase.db")
@@ -45,6 +46,7 @@ Module ConsoleToDo
         Else
             For i As Integer = (todoList.Count - 1) To 0 Step -1
                 If todoList(i)(1) = "y" Then Continue For
+                If todoList(i)(1) = "a" Then Continue For
                 If todoList(i)(1) = "n" Then Console.WriteLine(String.Format("{0} | {1}", todoList(i)(0).PadLeft(todoList(todoList.Count - 1)(0).ToString().Length), todoList(i)(2)))
             Next
         End If
@@ -70,9 +72,10 @@ Module ConsoleToDo
         End If
     End Sub
     Function getState(id As Integer)
-        If todoList(id)(1) = "y" Then Return " Complete "
+        If todoList(id)(1) = "y" Then Return "Complete  "
         If todoList(id)(1) = "n" Then Return "Incomplete"
-        Return "  Error   "
+        If todoList(id)(1) = "a" Then Return "Abandoned "
+        Return "     Error"
     End Function
     Sub UpdateItem()
         Console.WriteLine()
@@ -100,13 +103,13 @@ Module ConsoleToDo
         Try
             Console.WriteLine("Current item is" + vbCrLf + String.Format("  ID #{0} | {1} | ""{2}""", todoList(id)(0), getState(id), todoList(id)(2)))
             Console.ForegroundColor = ConsoleColor.Yellow
-            Console.Write("[M]ark as complete/incomplete  |  [U]pdate Description  |  [P]ick Other ID  |  [R]eturn to Menu")
+            Console.Write("[M]ark  |  [U]pdate Description  |  [P]ick Other ID  |  [R]eturn to Menu")
             Console.ForegroundColor = ConsoleColor.White
             Select Case Console.ReadKey(True).Key
                 Case ConsoleKey.M
                     Console.ForegroundColor = ConsoleColor.Yellow
                     Console.WriteLine()
-                    Console.Write("Mark as [C]omplete  |  Mark as [I]ncomplete  |  [R]eturn to Menu")
+                    Console.Write("Mark as [C]omplete  |  Mark as [I]ncomplete  |  Mark as [A]bandoned  |  [R]eturn to Menu")
                     Console.ForegroundColor = ConsoleColor.White
                     Select Case Console.ReadKey(True).Key
                         Case ConsoleKey.C
@@ -123,6 +126,10 @@ Module ConsoleToDo
                             System.Threading.Thread.Sleep(3000)
                             SaveToDo()
                             Exit Sub
+                        Case ConsoleKey.A
+                            todoList(id)(1) = "a"
+                            Console.WriteLine()
+                            Console.WriteLine(String.Format("ID #{0} abandoned. Returning to menu.", id))
                         Case ConsoleKey.R : Exit Sub
                     End Select
                 Case ConsoleKey.U
@@ -170,3 +177,4 @@ Module ConsoleToDo
         End Try
     End Sub
 End Module
+
